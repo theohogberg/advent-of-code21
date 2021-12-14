@@ -24,11 +24,11 @@ int main ()
 
 	// part 1
 	int biggly = 0;
-	for (int i = 0; i < vals.size(); ++i)
-	{
-		if (vals[i] < vals[i+1])
-			biggly++;
-	}
+	// for (int i = 0; i < vals.size(); ++i)
+	// {
+	// 	if (vals[i] < vals[i+1])
+	// 		biggly++;
+	// }
 	//cout << biggly << endl;
 	cout << vals.size() << endl;
 
