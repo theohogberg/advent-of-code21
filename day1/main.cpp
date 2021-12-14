@@ -24,16 +24,16 @@ int main ()
 
 	// part 1
 	int biggly = 0;
-	// for (int i = 0; i < vals.size(); ++i)
-	// {
-	// 	if (vals[i] < vals[i+1])
-	// 		biggly++;
-	// }
-	//cout << biggly << endl;
+	for (int i = 0; i < vals.size(); ++i)
+	{
+		if (vals[i] < vals[i+1])
+			biggly++;
+	}
+	cout << biggly << endl;
 	cout << vals.size() << endl;
 
 	// part 2
-	int big;
+	int big = 0;
 	for (int i = 0; i+2 < vals.size(); ++i)
 	{
 		int a = vals[i] + vals[i+1] + vals[i+2];
