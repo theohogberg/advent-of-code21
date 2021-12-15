@@ -1,2 +1,2 @@
 default:
-		c++ main.cpp -o main -stdlib=libc++ && ./main
+		c++ main.cpp -o main && ./main
