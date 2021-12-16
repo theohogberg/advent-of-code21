@@ -8,6 +8,82 @@ using namespace std;
 
 vector<bitset<12>> vals;
 
+vector<bitset<12>> getOxy (vector<bitset<12>> vs, short o)
+{
+	if (vs.size() == 1)
+	{
+		return vs;
+	}
+
+	vector<bitset<12>> zeros;
+	vector<bitset<12>> ones;
+	for (int i = 0; i < vs.size(); ++i)
+	{
+		if (vs[i][o] == 0)
+		{
+			zeros.push_back(vs[i]);
+		}
+		else
+		{
+			ones.push_back(vs[i]);
+		}
+	}
+
+	// check biggly
+	short zeros_sz = zeros.size();
+	short ones_sz = ones.size();
+	if (zeros_sz > ones_sz)
+	{
+		return getOxy(zeros, o+1);
+	}
+	else if (zeros_sz < ones_sz)
+	{
+		return getOxy(ones, o+1);
+	}
+	else // if all else is equal bring back ones
+	{
+		return getOxy(ones, o+1);
+	}
+}
+
+vector<bitset<12>> getCo2 (vector<bitset<12>> vs, short o)
+{
+	if (vs.size() == 1)
+	{
+		return vs;
+	}
+
+	vector<bitset<12>> zeros;
+	vector<bitset<12>> ones;
+	for (int i = 0; i < vs.size(); ++i)
+	{
+		if (vs[i][o] == 0)
+		{
+			zeros.push_back(vs[i]);
+		}
+		else
+		{
+			ones.push_back(vs[i]);
+		}
+	}
+
+	// check biggly
+	short zeros_sz = zeros.size();
+	short ones_sz = ones.size();
+	if (zeros_sz < ones_sz)
+	{
+		return getCo2(zeros, o+1);
+	}
+	else if (zeros_sz > ones_sz)
+	{
+		return getCo2(ones, o+1);
+	}
+	else // if all else is equal bring back zeroes
+	{
+		return getCo2(zeros, o+1);
+	}
+}
+
 int main ()
 {
 	// fetch input
@@ -23,26 +99,40 @@ int main ()
 	}
 
 	// part 1
-	int result[12] = {};
-	for (int i = 0; i < vals.size(); ++i)
-	{
-		bitset<12> bits = vals[i];
-		for (int j = 0; j < 12; ++j)
-		{
-			result[j] += (int)bits[j];
-		}
-	}
-	bitset<12> final;
-	for (int i = 0; i < 12; ++i)
-	{
-		final[i] = (result[i] >= 500) ? 1 : 0;
-	}
+	// int result[12] = {};
+	// for (int i = 0; i < vals.size(); ++i)
+	// {
+	// 	bitset<12> bits = vals[i];
+	// 	for (int j = 0; j < 12; ++j)
+	// 	{
+	// 		result[j] += (int)bits[j];
+	// 	}
+	// }
+	// bitset<12> final;
+	// for (int i = 0; i < 12; ++i)
+	// {
+	// 	final[i] = (result[i] >= 500) ? 1 : 0;
+	// }
+	// cout << final << endl;
+	// int gamma = final.to_ulong();
+	// cout << "g: " << gamma << endl;
+	// int epsilon = final.flip().to_ulong();
+	// cout << "e: " << epsilon << endl;
+	// cout << final << endl;
+	// cout << "g*e: " << gamma * epsilon << endl;
 
-	cout << final << endl;
-	int gamma = final.to_ulong();
-	cout << "g: " << gamma << endl;
-	int epsilon = final.flip().to_ulong();
-	cout << "e: " << epsilon << endl;
-	cout << final << endl;
-	cout << "g*e: " << gamma * epsilon << endl;
+	// part 2 recursion
+	vector<bitset<12>> oxyvec;
+	bitset<12> oxybits;
+	oxyvec = getOxy(vals, 0);
+	oxybits = oxyvec[0];
+	cout << oxybits << ':' << oxybits.to_ulong() << endl;
+
+	vector<bitset<12>> co2vec;
+	bitset<12> co2bits;
+	co2vec = getCo2(vals, 0);
+	co2bits = co2vec[0];
+	cout << co2bits << ':' << co2bits.to_ulong() << endl;
+
+	cout << oxybits.to_ulong() * co2bits.to_ulong() << endl;
 }
