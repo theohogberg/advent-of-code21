@@ -6,17 +6,17 @@
 
 using namespace std;
 
-vector<bitset<12>> vals;
+vector<bitset<5>> vals;
 
-vector<bitset<12>> getOxy (vector<bitset<12>> vs, short o)
+vector<bitset<5>> getOxy (vector<bitset<5>> vs, short o)
 {
 	if (vs.size() == 1)
 	{
 		return vs;
 	}
 
-	vector<bitset<12>> zeros;
-	vector<bitset<12>> ones;
+	vector<bitset<5>> zeros;
+	vector<bitset<5>> ones;
 	for (int i = 0; i < vs.size(); ++i)
 	{
 		if (vs[i][o] == 0)
@@ -34,27 +34,27 @@ vector<bitset<12>> getOxy (vector<bitset<12>> vs, short o)
 	short ones_sz = ones.size();
 	if (zeros_sz > ones_sz)
 	{
-		return getOxy(zeros, o+1);
+		return getOxy(zeros, o-1);
 	}
 	else if (zeros_sz < ones_sz)
 	{
-		return getOxy(ones, o+1);
+		return getOxy(ones, o-1);
 	}
 	else // if all else is equal bring back ones
 	{
-		return getOxy(ones, o+1);
+		return getOxy(ones, o-1);
 	}
 }
 
-vector<bitset<12>> getCo2 (vector<bitset<12>> vs, short o)
+vector<bitset<5>> getCo2 (vector<bitset<5>> vs, short o)
 {
 	if (vs.size() == 1)
 	{
 		return vs;
 	}
 
-	vector<bitset<12>> zeros;
-	vector<bitset<12>> ones;
+	vector<bitset<5>> zeros;
+	vector<bitset<5>> ones;
 	for (int i = 0; i < vs.size(); ++i)
 	{
 		if (vs[i][o] == 0)
@@ -72,15 +72,15 @@ vector<bitset<12>> getCo2 (vector<bitset<12>> vs, short o)
 	short ones_sz = ones.size();
 	if (zeros_sz < ones_sz)
 	{
-		return getCo2(zeros, o+1);
+		return getCo2(zeros, o-1);
 	}
 	else if (zeros_sz > ones_sz)
 	{
-		return getCo2(ones, o+1);
+		return getCo2(ones, o-1);
 	}
 	else // if all else is equal bring back zeroes
 	{
-		return getCo2(zeros, o+1);
+		return getCo2(zeros, o-1);
 	}
 }
 
@@ -93,23 +93,23 @@ int main ()
 		string line;
 		while (getline(valstream, line))
 		{
-			bitset<12> bits(line);
+			bitset<5> bits(line);
 			vals.push_back(bits);
 		}
 	}
 
 	// part 1
-	// int result[12] = {};
+	// int result[5] = {};
 	// for (int i = 0; i < vals.size(); ++i)
 	// {
-	// 	bitset<12> bits = vals[i];
-	// 	for (int j = 0; j < 12; ++j)
+	// 	bitset<5> bits = vals[i];
+	// 	for (int j = 0; j < 5; ++j)
 	// 	{
 	// 		result[j] += (int)bits[j];
 	// 	}
 	// }
-	// bitset<12> final;
-	// for (int i = 0; i < 12; ++i)
+	// bitset<5> final;
+	// for (int i = 0; i < 5; ++i)
 	// {
 	// 	final[i] = (result[i] >= 500) ? 1 : 0;
 	// }
@@ -122,17 +122,17 @@ int main ()
 	// cout << "g*e: " << gamma * epsilon << endl;
 
 	// part 2 recursion
-	vector<bitset<12>> oxyvec;
-	bitset<12> oxybits;
-	oxyvec = getOxy(vals, 0);
+	vector<bitset<5>> oxyvec;
+	bitset<5> oxybits;
+	oxyvec = getOxy(vals, 4);
 	oxybits = oxyvec[0];
-	cout << oxybits << ':' << oxybits.to_ulong() << endl;
+	cout << oxybits << '\n' << oxybits.to_ulong() << endl;
 
-	vector<bitset<12>> co2vec;
-	bitset<12> co2bits;
-	co2vec = getCo2(vals, 0);
+	vector<bitset<5>> co2vec;
+	bitset<5> co2bits;
+	co2vec = getCo2(vals, 4);
 	co2bits = co2vec[0];
-	cout << co2bits << ':' << co2bits.to_ulong() << endl;
+	cout << co2bits << '\n' << co2bits.to_ulong() << endl;
 
-	cout << oxybits.to_ulong() * co2bits.to_ulong() << endl;
+	// cout << oxybits.to_ulong() * co2bits.to_ulong() << endl;
 }
