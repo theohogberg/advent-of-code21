@@ -147,8 +147,9 @@ int main ()
 						board bboard = checkBingo(b);
 						if (bboard.bingo)
 						{
+							boards.erase(boards.begin()+l);
 							int sum = 0;
-							cout << "bingooooo!" << endl;
+							cout << endl << "bingooooo!";
 							for (int y = 0; y < 5; ++y)
 							{
 								cout << endl;
@@ -163,8 +164,7 @@ int main ()
 								}
 							}
 
-							cout << endl << s << ':' << sum << ' ' << s * sum;
-							return 0;
+							cout << endl << (int)s << ':' << sum << ' ' << s * sum << endl;
 						}
 					}
 				}
